@@ -66,14 +66,14 @@ export const updateUser = async (req: Request, res: Response) => {
     const { id } = req.params;
     const data = req.body;
     if (!id || !data) return res.status(400).send({msg: "Missing details!"})
-    const user = await User.findOne({wher: {id : id}})
+    const user = await User.findOne({where: {id : id}})
   if (!user) return res.status(500).send({msg: "User not found"});
   for (const ops of data){
     user [ops.propName] = ops.value
   }
   
 
-  const action = await  user.save 
+  const action = await  user.save()
 if (!action) return res.status(500).send({msg : "Something went wrong"});
   return res.status(200).send({msg : " User updated!", payload : user})
 }
